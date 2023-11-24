@@ -1,2 +1,6 @@
 
+#+include:
 * this is a my learningspaces
+
+** Language
+[[./Language/rust.org][rust]]
