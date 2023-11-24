@@ -3,4 +3,4 @@
 * this is a my learningspaces
 
 ** Language
-[[./Language/rust.org][rust]]
+[[./Language/Rust.org][rust]]
