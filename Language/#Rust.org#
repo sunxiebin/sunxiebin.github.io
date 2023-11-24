@@ -1,0 +1,19 @@
+* Rust language
+
+变量：声明、初始化、使用、销毁等，整个生命周期。
+表达式：操作符 —+，-。
+
+example
+
+#+BEGIN_SRC rust :tangle
+  fn main(){
+     let a= 2;
+      println!("{}",a);
+
+  }
+
+#+END_SRC
+
+#+RESULTS:
+: 2
+
