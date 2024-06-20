@@ -1,0 +1,66 @@
+* network 
+** lisp language
+ A network connection is handled by Lisp much like a
+subprocess, and is represented by a process object.  However, the
+process you are communicating with is not a child of the Emacs process,
+has no process ID, and you can’t kill it or send it signals.  All you
+can do is send and receive data.
+#+BEGIN_SRC emacs-lisp
+    (let ((proc (make-network-process
+             :name "http-client"
+             :buffer "*http-client*"
+             :host "www.baidu.com"
+             :service 80)))
+  (process-send-string
+   proc
+   (concat
+    "GET / HTTP/1.1\r\n"
+    "Host:www.baidu.com\r\n"
+    "Connection: close\r\n"
+    "\r\n"))
+  (display-buffer (process-buffer proc)))
+#+END_SRC
+
+#+RESULTS:
+: #<window 16 on *http-client*>
+
+
+#+BEGIN_SRC C
+  #include<sys/socket.h>
+  #include<stdio.h>
+  int main(){
+     int CSocket= socket(AF_INET,SOCK_STREAM,0);
+      if(CSocket<0){
+	printf("failed to create socket");
+      }else {printf("sucessed to create socket");}
+    }
+#+END_SRC
+
+
+#+RESULTS:
+: sucessed to create socket
+
+使用第四层TCP/UDP
+#+BEGIN_SRC rust
+  use std::net::TcpStream;
+
+  if let Ok(_stream) = TcpStream::connect("127.0.0.1:48125") {
+      println!("Connected to the server!");
+  } else {
+      println!("Couldn't connect to server...");
+  }
+#+END_SRC
+
+#+RESULTS:
+: Couldn't connect to server...
+
+* param
+** uml
+#+BEGIN_SRC dot :file flowchart.png :cmdline -Kdot -Tpng
+digraph G {
+  start -> A;
+  A -> B;
+  B -> C;
+  C -> end;
+}
+#+END_SRC

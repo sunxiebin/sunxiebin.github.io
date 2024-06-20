@@ -1,23 +1,440 @@
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../org.css"/>
+#+TITLE: RUST-LANUAGE
+#+PROPERTY: header-args: right t
+#+INFOJS_OPT: path:../org-info.js  
+#+HTML_DOCTYPE: html5
+#+EXPORT_FILE_NAME: ~/Project/sunxiebin.github.io/export/Rust.html
 * Rust language
+** 1. example
+使用的插件是ob-rust,底层使用了rust-script命令。
+#+BEGIN_SRC rust :exports both 
 
-变量：声明、初始化、使用、销毁等，整个生命周期。
-表达式：操作符 —+，-。
-
-example
-
-#+BEGIN_SRC rust :tangle
-  fn main(){
-     let a= 2;
-      println!("{}",a);
-
-  }
+   let mut v:Vec<i32>=Vec::new();
+    v.push(10);
+    let one:Option<&i32>=v.get(0);
+	match one {
+	Some(x)=>println!("result:{x}"),
+	    None  => println!("None"),
+     }
 
 #+END_SRC
 
 #+RESULTS:
+: result:10
+
+#+RESULTS:
+  
+** 2. ownship
+move
+
+#+BEGIN_SRC rust
+  let  _s="hello,world";
+  let s="HELLO";
+  const _S1:&str="369";
+  println!("{}",s);
+#+END_SRC
+
+#+RESULTS:
+: HELLO
+
+copy trait
+
+*** image
+
+#+ATTR_HTML: :alt a_image
+[[file:/Users/sunxiebin/Project/sunxiebin.github.io/export/image/a.jpeg]]
+** 3. refenrence and derefenrence
+
+
+<<1>>example
+#+BEGIN_SRC rust
+  fn main() {
+  {    let x = 5;
+      let y = &x; //  操作符 ‘=’ 的意义，
+      assert_eq!(5, x);
+      assert_eq!(5, *y);
+      println!("this is {}",y);
+   }
+   let list=vec![323,12231,434323,34534];
+      let mut largest= &list[0];
+      for num in &list {
+	  if *num > *largest {largest=num;}}
+      println!("{}",*largest);
+  }  
+#+END_SRC
+
+#+RESULTS:
+: this is 5
+: 434323
+
+#+BEGIN_SRC C
+  #include<stdio.h>  
+    int main(){
+      int x=5;
+      int *y;
+      y=&x;
+     printf("%p",y);
+     return 0;
+   }
+#+END_SRC
+
+#+RESULTS:
+: 0x16fb0f5d8
+
+*** lifetime
+借用的生命周期
+借用是为了防止所有权的转移，借用的作用域和自身的属性相关，自身属性分为不可变和可变。在一个{}作用域中
+存在“只能有一个可变引用，要么可以有多个不可变引用，但不能同时有可变和不可变引用”，如果两者在一个{}
+同时存在，编译器不会通过，变相的显示引用作用域的缩短，这样做是为了避免数据竞争。
+ lifttime is only in the complie period.
+ every type in Rust has a lifetime
+#+BEGIN_SRC rust
+
+    fn main(){
+
+  //      fn some<'a,'b> (x:&'a str ,y:&'b str )->&'b str{
+  //		y
+    //    }
+
+      let mut x = 5; // 可变变量
+
+      // 不可变借用
+      let y = &x;
+      println!("不可变借用：{}", y);
+      // 可变借用
+      let z = &mut x;
+      ,*z += 1;
+      println!("可变借用：{}", z);
+     // println!("不可变借用：{}", y);
+	let  y1=&x;
+	      println!("不可变借用：y1={}", y1);
+
+    }
+#+END_SRC
+
+#+RESULTS:
+所有权的转移，还要分两种，一种是实现clone特征，一种没有实现的。没有实现就是移动。实现了就是复制。
+#+BEGIN_SRC rust
+  fn main(){
+      let x=String::from("hello,world");
+      add(x);
+      //let y=&x;
+     println!("{:p}",&x);
+  }
+  fn add(x:String){
+      println!("{:p}",&x);
+  }
+#+END_SRC
+
+#+RESULTS:
+
+*** smarts points
+** 4. expression and statment
+
+*** 4.1 expression
+expression have a return value.Including operate 
+**** enum
+
+#+BEGIN_SRC rust
+  enum Option<T> {
+    Some(T),
+    None,
+  }   
+#+END_SRC 
+
+** 5. structure
+*** three
+1.  classic structs
+结构体初始化，那么成员都要初始化
+#+BEGIN_SRC rust
+  struct Point{
+    x:f64,
+    y:String,
+    z:f64,
+  }
+  let s=String::from("hello");
+  let a=Point{
+    x:0.23,
+      y:s,
+      z:1.563,
+  } ;
+  let b=Point{
+
+      y:a.y,
+      z:a.z,
+  };
+  print!("{}",a.x); 
+#+END_SRC
+
+#+RESULTS:
+
+2.  (tuple  structs: similar to a tuple,but own signtures)
+   #+BEGIN_SRC rust
+    struct Color(i32,i32,...);
+   #+END_SRC
+3.  (unit structs:null structs no data)
+
+impl 里面的函数称为关联函数   
+*** struct 编译器会自动调用   引用和解引用
+#+BEGIN_SRC rust
+  struct Some{
+    w:u32,
+    h:u32,
+  } // 定义数据
+  impl Some{
+   fn some(&self)->u32{
+   return  self.w*self.h;
+  }
+   fn new(w:u32,h:u32)->Self{
+    Self{
+	w,h
+    }
+   }
+  }//定义方法
+    fn main(){
+    // let s=Some{ w:21, h:32, };// 
+     let s=Some::new(22,32);//note that :: , namespaces
+	println!("the area of the some is {} squre pixels ",s.some());//调用
+	
+     let s1=&s;
+println!("the area of the some is {} squre pixels ",s1.some());//调用
+
+     }
+#+END_SRC
+  
+#+RESULTS:
+: the area of the some is 704 squre pixels
+
+*** 考虑多struct的相互调用
+
+struct A实例关联struct B 时 
+
+#+BEGIN_SRC rust
+  #[warn(warnings)]
+  struct A{}
+    impl A{
+       fn a(c:&B){
+
+       }
+    }
+    struct B{}
+#+END_SRC
+
+#+RESULTS:
+
+*** abstracts
+*** generic type 泛型
+
+concrete type(具体类型/动态类型)
+
+ 消除重复，函数重复，包括签名重复和内容重复。
+ 类似C++的泛型
+
+使用单态化不会影响性能。
+
+
+*** 单态化
+
+1. 其实就是把编译时，生成相应的重复代码。
+2. 这样坏处，自然带来编译后代码冗余。
+
+** 6. trait 
+A type’s behavior consists of the methods we can call on that type. Different types share the same behavior if we can call
+the same methods on all of those types. Trait definitions are a way to group method signatures together to define a set of
+behaviors necessary to accomplish some purpose.
+
+trait 是指特征。是指相同行为的抽象。
+实现语法：
+#+BEGIN_EXAMPLE
+pub trait ${trait_name} {
+   fn ${function_name}-> style;
+}
+impl ... for .. #这个语法其实挺口语化的，为类型实现特征。
+#+END_EXAMPLE
+
+define->impl->call
+#+BEGIN_SRC rust
+  fn main(){
+   let person_one=Person{name:"sunxiebin".to_string(),};
+   let dog_one=Dog{name:"xiaohuang".to_string(),};
+   person_one.run();
+   dog_one.run();
+  }
+  pub trait Run{
+     fn run(&self);
+  }
+  pub struct Person{
+   pub name:String,
+  }
+  impl Run for Person{
+    fn run(&self){
+      println!("{} begin to run",self.name);
+    }
+  }
+  pub struct Dog{
+   pub name:String,
+  }
+  impl Run for Dog{
+      fn run(&self){
+	  println!("{} begin to run",self.name);
+      }
+  }
+#+END_SRC
+
+#+RESULTS:
+: sunxiebin begin to run
+: xiaohuang begin to run
+
+
+*** 函数的重载
+   明显特征的默认函数既然被重载了，推理出特征的实现的作用域已经拓展到新的作用域。
+*** 特征作为函数参数
+    之前提到了特征是行为的抽象，使得行为名词化。
+   
+
+
+*** 生命周期
+在C/C++语言，或者其他语言中，一个变量的生命周期，包括了作用域和存储期两个方面。
+  1. 作用域：在程序文本中的可见区域。（为什么要有作用域呢？，这涉及到语言学方面。）在编译期。
+  2. 存储期：在函数内的自动存储期、全局的静态存储期、动态存储期、线程存储期。在运行期。
+
+变量在哪个作用域实例化，那么它的生命区间，就在哪个作用域。那么变量就拥有所有权。所有权只有借用或者转移。借用就是[[1][引用]]。    
+生命周期就是解决悬空引用，什么是就是只有引用，没有实际的数据。就像一个悬空的针，为什么会导致悬空，就是因为rust，会在作用域结尾添加drop函数，
+就是free函数。
+
+借用检查器：
+
+
+静态生命周期(static lifetime)：'static
+** third party 
+使用第三方包，使用参数flags，如下：
+
+#+BEGIN_SRC rust :exports both :flags -d rand="0.8.5"
+  use rand::Rng;
+   fn main(){
+	 let secret=rand::thread_rng().gen_range(1..=100);
+       println!("the secret number is:{secret}");
+   }
+#+END_SRC
+
+#+RESULTS:
+: the secret number is:28
+
+** TODO todo <2024-03-01 Fri>
+
+1.对比 C++和rust的多态
+
+** 7. functional and Closures
+*** 7.1 define
+ Programming in a functional style often includes using functions as values by passing them in arguments, returning them from other
+ functions, assigning them to variables for later execution, and so forth.
+ lambada
+
+ |x: style |-> return style{function body}
+
+#+BEGIN_SRC rust
+  let square = |x: i32| -> i32 {x*x};
+  println!("y={}",square(3));
+
+#+END_SRC
+
+#+RESULTS:
+: y=9
+*** 7.2 capture val
+#+BEGIN_SRC rust
+#[allow(warnings)]
+  let mut z:i32=3;
+    let y=|x:i32|->i32{x*z};
+  //  let n= &mut z;
+  //  z=5;
+  println!("y={}",y(2));
+  //  println!("n={}",*n+1);
+#+END_SRC
+
+#+RESULTS:
+: y=6
+*** 7.3 three kind of closures
+  Fnmut\Fnonce\Fn
+It's time to use three kinds of closure with liftime and ownship
+#+BEING_SRC rust
+trait callback()
+#+END_SRC
+** 8. Concurrency
+
+#+BEGIN_SRC rust
+  
+#+END_SRC
+
+** 9. collect
+*** 8.1 define
+1. collection is a style of data structure.
+   array and tuple built-in.
+2. collection point to is stored on the heap.
+3. three major collectons: string vector hashmap.    
+ 
+#+BEGIN_SRC rust
+      let mut v:Vec<i32> =Vec::new();
+      v.push(5);
+      v.push(6);
+      let second:i32=v[1];
+      let second_option:Option<&i32> =v.get(2);
+      match  second_option {
+	  Some(second_option) => println!("{second_option}"),
+	  None => println!("None"),
+      }
+      println!("{}",second);
+     let v1=vec![1,2,3,4,5];
+  let third:i32=v1[1];
+  println!("{}",third);
+#+END_SRC
+
+#+RESULTS:
+: None
+: 6
 : 2
 
+*** iterate over the vaule in a vector
+#+BEGIN_SRC rust
+  let v= vec![1,2,3];
+  for i in &v { println!("{i}")};
 
-** structure
- 
+  //change to values
+  let mut v1=vec![1,2,3];
+  for i in &mut v1{
+      ,*i+=1;
+      println!("{i}");
+  }
+#+END_SRC
+
+#+RESULTS:
+: 1
+: 2
+: 3
+: 2
+: 3
+: 4
+
+*** Box
+#+BEGIN_SRC rust
+   let v1:Option<Box<i32>>=Some(Box::new(5));
+  match v1  {
+      Some(v1)=> println!("{v1}"),
+      None=> println!("None"),
+  }
+#+END_SRC
+
+#+RESULTS:
+: 5
+*** ListNode
+#+BEGIN_SRC rust
+   let v1:Option<Box<>>=Some(Box::new(5));
+  match v1  {
+      Some(v1)=> println!("{v1}"),
+      None=> println!("None"),
+  }  
+#+END_SRC
+
+#+RESULTS:
+: 5
+
+

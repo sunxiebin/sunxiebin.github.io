@@ -1,0 +1,37 @@
+* assembly language
+** concept
+汇编语言是指令[fn:1]的助记符。
+
+
+
+
+#+BEGIN_SRC sh :export both
+
+  objdump -d /Users/sunxiebin/Project/testcpp/test_1
+
+#+END_SRC
+
+#+RESULTS:
+|                                          |          |         |                |              |             |        |
+| /Users/sunxiebin/Project/testcpp/test_1: | file     | format  | mach-o         | arm64        |             |        |
+|                                          |          |         |                |              |             |        |
+|                              Disassembly | of       | section | __TEXT,__text: |              |             |        |
+|                                          |          |         |                |              |             |        |
+|                                        0 | <ltmp0>: |         |                |              |             |        |
+|                                       0: | a9bf7bfd | stp     | x29,           | x30,         | [sp,        | #-16]! |
+|                                       4: | 910003fd | mov     | x29,           | sp           |             |        |
+|                                       8: | 90000000 | adrp    | x0,            | 0x0          | <ltmp0+0x8> |        |
+|                                       c: | 91000000 | add     | x0,            | x0,          | #0          |        |
+|                                      10: | 94000000 | bl      | 0x10           | <ltmp0+0x10> |             |        |
+|                                      14: | 52800000 | mov     | w0,            | #0           |             |        |
+|                                      18: | a8c17bfd | ldp     | x29,           | x30,         | [sp],       | #16    |
+|                                      1c: | d65f03c0 | ret     |                |              |             |        |
+
+
+
+#+BEGIN_SRC asm 
+mov 1, %eax
+#+END_SRC
+
+[fn:1]指令通常是指芯片架构,通用有X86，ARM等。
+

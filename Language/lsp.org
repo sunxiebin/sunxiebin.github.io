@@ -1,0 +1,46 @@
+* lisp lanuage
+#+BEGIN_SRC emacs-lisp
+(+ 1 1)
+#+END_SRC
+
+#+RESULTS:
+: 2
+
+** 1. lambda expression
+this is a simple lambda example.
+#+BEGIN_SRC emacs-lisp
+(funcall (lambda (a b) (* a b) ) 3 5)
+
+#+END_SRC
+
+#+RESULTS:
+: 15
+
+** 2. rust lib jion into elisp with dynamic-module
+
+*** 1. add dependency emacs
+
+#+BEGIN_EXAMPLE
+add above into cargo.html
+[dependencies]
+emacs="0.19.0" 
+[lib]
+crate-type=["rlib","dylib"]
+//compile with stanalone library
+
+#+END_EXAMPLE
+
+*** 2. code
+#+BEGIN_SRC rust
+use emacs::{defun,Env,Result,Value};
+emacs::plugin_is_GPL_compatible!();
+
+#[emacs::module(name = "greeting")]
+fn init(_: &Env) -> Result<()> { Ok(()) }
+
+#[defun]
+fn say_hello(env: &Env, name: String) -> Result<Value<'_>> {
+    env.message(&format!("Hello, {}!", name))
+}
+#+END_SRC
+
