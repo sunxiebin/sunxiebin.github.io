@@ -1,0 +1,254 @@
+* ML(machine learning)
+** CNN
+
+#+BEGIN_SRC rust :flags -d tch=0.16.0 -d anyhow=1.0.86
+  use anyhow::Result;
+  use tch::{nn, nn::Module, nn::OptimizerConfig, Device};
+
+  const IMAGE_DIM: i64 = 784;
+  const HIDDEN_NODES: i64 = 128;
+  const LABELS: i64 = 10;
+
+  fn net(vs: &nn::Path) -> impl Module {
+      nn::seq()
+	  .add(nn::linear(
+	      vs / "layer1",
+	      IMAGE_DIM,
+	      HIDDEN_NODES,
+	      Default::default(),
+	  ))
+	  .add_fn(|xs| xs.relu())
+	  .add(nn::linear(vs, HIDDEN_NODES, LABELS, Default::default()))
+  }
+
+  pub fn run() -> Result<()> {
+      let m = tch::vision::mnist::load_dir("/Users/sunxiebin/Project/test_tch/data/")?;
+      let vs = nn::VarStore::new(Device::Cpu);
+      let net = net(&vs.root());
+      let mut opt = nn::Adam::default().build(&vs, 1e-3)?;
+      for epoch in 1..200 {
+	  let loss = net
+	      .forward(&m.train_images)
+	      .cross_entropy_for_logits(&m.train_labels);
+	  opt.backward_step(&loss);
+	  let test_accuracy = net
+	      .forward(&m.test_images)
+	      .accuracy_for_logits(&m.test_labels);
+	  println!(
+	      "epoch: {:4} train loss: {:8.5} test acc: {:5.2}%",
+	      epoch,
+	      &loss.double_value(&[]),
+	      100. * &test_accuracy.double_value(&[]),
+	  );
+      }
+      Ok(())
+  }
+   fn main(){
+       let _t=run();
+        println!("successed to run");
+      }
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+epoch:    1 train loss:  2.42999 test acc: 17.69%
+epoch:    2 train loss:  2.26552 test acc: 31.54%
+epoch:    3 train loss:  2.12132 test acc: 44.53%
+epoch:    4 train loss:  1.99037 test acc: 54.46%
+epoch:    5 train loss:  1.86788 test acc: 61.26%
+epoch:    6 train loss:  1.75116 test acc: 66.16%
+epoch:    7 train loss:  1.63935 test acc: 69.69%
+epoch:    8 train loss:  1.53240 test acc: 72.15%
+epoch:    9 train loss:  1.43077 test acc: 74.24%
+epoch:   10 train loss:  1.33493 test acc: 75.93%
+epoch:   11 train loss:  1.24523 test acc: 77.05%
+epoch:   12 train loss:  1.16186 test acc: 78.27%
+epoch:   13 train loss:  1.08511 test acc: 79.44%
+epoch:   14 train loss:  1.01506 test acc: 80.38%
+epoch:   15 train loss:  0.95157 test acc: 81.50%
+epoch:   16 train loss:  0.89431 test acc: 82.13%
+epoch:   17 train loss:  0.84280 test acc: 82.72%
+epoch:   18 train loss:  0.79649 test acc: 83.24%
+epoch:   19 train loss:  0.75479 test acc: 83.71%
+epoch:   20 train loss:  0.71720 test acc: 84.36%
+epoch:   21 train loss:  0.68337 test acc: 84.92%
+epoch:   22 train loss:  0.65303 test acc: 85.42%
+epoch:   23 train loss:  0.62588 test acc: 86.00%
+epoch:   24 train loss:  0.60157 test acc: 86.38%
+epoch:   25 train loss:  0.57971 test acc: 86.66%
+epoch:   26 train loss:  0.55992 test acc: 87.04%
+epoch:   27 train loss:  0.54194 test acc: 87.31%
+epoch:   28 train loss:  0.52559 test acc: 87.52%
+epoch:   29 train loss:  0.51071 test acc: 87.66%
+epoch:   30 train loss:  0.49712 test acc: 87.92%
+epoch:   31 train loss:  0.48463 test acc: 88.18%
+epoch:   32 train loss:  0.47312 test acc: 88.32%
+epoch:   33 train loss:  0.46248 test acc: 88.41%
+epoch:   34 train loss:  0.45263 test acc: 88.54%
+epoch:   35 train loss:  0.44350 test acc: 88.75%
+epoch:   36 train loss:  0.43497 test acc: 88.90%
+epoch:   37 train loss:  0.42696 test acc: 88.99%
+epoch:   38 train loss:  0.41944 test acc: 89.18%
+epoch:   39 train loss:  0.41237 test acc: 89.37%
+epoch:   40 train loss:  0.40572 test acc: 89.58%
+epoch:   41 train loss:  0.39943 test acc: 89.68%
+epoch:   42 train loss:  0.39348 test acc: 89.79%
+epoch:   43 train loss:  0.38784 test acc: 89.91%
+epoch:   44 train loss:  0.38250 test acc: 90.01%
+epoch:   45 train loss:  0.37744 test acc: 90.10%
+epoch:   46 train loss:  0.37264 test acc: 90.17%
+epoch:   47 train loss:  0.36807 test acc: 90.37%
+epoch:   48 train loss:  0.36372 test acc: 90.42%
+epoch:   49 train loss:  0.35956 test acc: 90.57%
+epoch:   50 train loss:  0.35559 test acc: 90.64%
+epoch:   51 train loss:  0.35181 test acc: 90.74%
+epoch:   52 train loss:  0.34819 test acc: 90.78%
+epoch:   53 train loss:  0.34471 test acc: 90.82%
+epoch:   54 train loss:  0.34137 test acc: 90.88%
+epoch:   55 train loss:  0.33817 test acc: 90.95%
+epoch:   56 train loss:  0.33509 test acc: 91.06%
+epoch:   57 train loss:  0.33213 test acc: 91.18%
+epoch:   58 train loss:  0.32928 test acc: 91.23%
+epoch:   59 train loss:  0.32652 test acc: 91.26%
+epoch:   60 train loss:  0.32385 test acc: 91.32%
+epoch:   61 train loss:  0.32126 test acc: 91.39%
+epoch:   62 train loss:  0.31875 test acc: 91.40%
+epoch:   63 train loss:  0.31632 test acc: 91.46%
+epoch:   64 train loss:  0.31396 test acc: 91.54%
+epoch:   65 train loss:  0.31166 test acc: 91.55%
+epoch:   66 train loss:  0.30941 test acc: 91.58%
+epoch:   67 train loss:  0.30723 test acc: 91.67%
+epoch:   68 train loss:  0.30509 test acc: 91.78%
+epoch:   69 train loss:  0.30300 test acc: 91.80%
+epoch:   70 train loss:  0.30096 test acc: 91.83%
+epoch:   71 train loss:  0.29897 test acc: 91.88%
+epoch:   72 train loss:  0.29701 test acc: 91.93%
+epoch:   73 train loss:  0.29509 test acc: 91.97%
+epoch:   74 train loss:  0.29322 test acc: 92.02%
+epoch:   75 train loss:  0.29137 test acc: 92.07%
+epoch:   76 train loss:  0.28957 test acc: 92.09%
+epoch:   77 train loss:  0.28779 test acc: 92.12%
+epoch:   78 train loss:  0.28605 test acc: 92.17%
+epoch:   79 train loss:  0.28434 test acc: 92.22%
+epoch:   80 train loss:  0.28266 test acc: 92.26%
+epoch:   81 train loss:  0.28101 test acc: 92.29%
+epoch:   82 train loss:  0.27938 test acc: 92.32%
+epoch:   83 train loss:  0.27778 test acc: 92.33%
+epoch:   84 train loss:  0.27621 test acc: 92.34%
+epoch:   85 train loss:  0.27466 test acc: 92.35%
+epoch:   86 train loss:  0.27313 test acc: 92.41%
+epoch:   87 train loss:  0.27162 test acc: 92.41%
+epoch:   88 train loss:  0.27014 test acc: 92.48%
+epoch:   89 train loss:  0.26867 test acc: 92.50%
+epoch:   90 train loss:  0.26723 test acc: 92.52%
+epoch:   91 train loss:  0.26580 test acc: 92.58%
+epoch:   92 train loss:  0.26439 test acc: 92.62%
+epoch:   93 train loss:  0.26300 test acc: 92.63%
+epoch:   94 train loss:  0.26162 test acc: 92.69%
+epoch:   95 train loss:  0.26026 test acc: 92.74%
+epoch:   96 train loss:  0.25892 test acc: 92.78%
+epoch:   97 train loss:  0.25759 test acc: 92.83%
+epoch:   98 train loss:  0.25628 test acc: 92.86%
+epoch:   99 train loss:  0.25498 test acc: 92.90%
+epoch:  100 train loss:  0.25370 test acc: 92.97%
+epoch:  101 train loss:  0.25243 test acc: 92.97%
+epoch:  102 train loss:  0.25118 test acc: 93.01%
+epoch:  103 train loss:  0.24994 test acc: 93.03%
+epoch:  104 train loss:  0.24871 test acc: 93.06%
+epoch:  105 train loss:  0.24750 test acc: 93.09%
+epoch:  106 train loss:  0.24629 test acc: 93.14%
+epoch:  107 train loss:  0.24510 test acc: 93.15%
+epoch:  108 train loss:  0.24392 test acc: 93.22%
+epoch:  109 train loss:  0.24275 test acc: 93.23%
+epoch:  110 train loss:  0.24160 test acc: 93.24%
+epoch:  111 train loss:  0.24045 test acc: 93.26%
+epoch:  112 train loss:  0.23931 test acc: 93.28%
+epoch:  113 train loss:  0.23819 test acc: 93.32%
+epoch:  114 train loss:  0.23707 test acc: 93.36%
+epoch:  115 train loss:  0.23597 test acc: 93.38%
+epoch:  116 train loss:  0.23488 test acc: 93.40%
+epoch:  117 train loss:  0.23379 test acc: 93.46%
+epoch:  118 train loss:  0.23272 test acc: 93.46%
+epoch:  119 train loss:  0.23165 test acc: 93.49%
+epoch:  120 train loss:  0.23060 test acc: 93.49%
+epoch:  121 train loss:  0.22955 test acc: 93.52%
+epoch:  122 train loss:  0.22851 test acc: 93.55%
+epoch:  123 train loss:  0.22748 test acc: 93.57%
+epoch:  124 train loss:  0.22646 test acc: 93.59%
+epoch:  125 train loss:  0.22545 test acc: 93.59%
+epoch:  126 train loss:  0.22444 test acc: 93.61%
+epoch:  127 train loss:  0.22345 test acc: 93.65%
+epoch:  128 train loss:  0.22246 test acc: 93.65%
+epoch:  129 train loss:  0.22147 test acc: 93.68%
+epoch:  130 train loss:  0.22050 test acc: 93.69%
+epoch:  131 train loss:  0.21953 test acc: 93.72%
+epoch:  132 train loss:  0.21857 test acc: 93.72%
+epoch:  133 train loss:  0.21762 test acc: 93.72%
+epoch:  134 train loss:  0.21667 test acc: 93.74%
+epoch:  135 train loss:  0.21573 test acc: 93.72%
+epoch:  136 train loss:  0.21480 test acc: 93.78%
+epoch:  137 train loss:  0.21388 test acc: 93.79%
+epoch:  138 train loss:  0.21296 test acc: 93.80%
+epoch:  139 train loss:  0.21204 test acc: 93.84%
+epoch:  140 train loss:  0.21113 test acc: 93.86%
+epoch:  141 train loss:  0.21023 test acc: 93.87%
+epoch:  142 train loss:  0.20933 test acc: 93.89%
+epoch:  143 train loss:  0.20844 test acc: 93.90%
+epoch:  144 train loss:  0.20755 test acc: 93.93%
+epoch:  145 train loss:  0.20667 test acc: 93.95%
+epoch:  146 train loss:  0.20580 test acc: 93.97%
+epoch:  147 train loss:  0.20493 test acc: 93.98%
+epoch:  148 train loss:  0.20407 test acc: 94.01%
+epoch:  149 train loss:  0.20321 test acc: 94.03%
+epoch:  150 train loss:  0.20235 test acc: 94.07%
+epoch:  151 train loss:  0.20150 test acc: 94.10%
+epoch:  152 train loss:  0.20066 test acc: 94.11%
+epoch:  153 train loss:  0.19982 test acc: 94.13%
+epoch:  154 train loss:  0.19899 test acc: 94.15%
+epoch:  155 train loss:  0.19816 test acc: 94.15%
+epoch:  156 train loss:  0.19734 test acc: 94.17%
+epoch:  157 train loss:  0.19652 test acc: 94.19%
+epoch:  158 train loss:  0.19571 test acc: 94.19%
+epoch:  159 train loss:  0.19490 test acc: 94.20%
+epoch:  160 train loss:  0.19410 test acc: 94.23%
+epoch:  161 train loss:  0.19330 test acc: 94.28%
+epoch:  162 train loss:  0.19251 test acc: 94.30%
+epoch:  163 train loss:  0.19172 test acc: 94.31%
+epoch:  164 train loss:  0.19094 test acc: 94.34%
+epoch:  165 train loss:  0.19016 test acc: 94.36%
+epoch:  166 train loss:  0.18938 test acc: 94.39%
+epoch:  167 train loss:  0.18862 test acc: 94.42%
+epoch:  168 train loss:  0.18785 test acc: 94.43%
+epoch:  169 train loss:  0.18710 test acc: 94.48%
+epoch:  170 train loss:  0.18634 test acc: 94.51%
+epoch:  171 train loss:  0.18559 test acc: 94.54%
+epoch:  172 train loss:  0.18485 test acc: 94.55%
+epoch:  173 train loss:  0.18411 test acc: 94.58%
+epoch:  174 train loss:  0.18337 test acc: 94.58%
+epoch:  175 train loss:  0.18264 test acc: 94.59%
+epoch:  176 train loss:  0.18191 test acc: 94.58%
+epoch:  177 train loss:  0.18118 test acc: 94.58%
+epoch:  178 train loss:  0.18046 test acc: 94.62%
+epoch:  179 train loss:  0.17975 test acc: 94.63%
+epoch:  180 train loss:  0.17904 test acc: 94.68%
+epoch:  181 train loss:  0.17833 test acc: 94.72%
+epoch:  182 train loss:  0.17762 test acc: 94.73%
+epoch:  183 train loss:  0.17692 test acc: 94.76%
+epoch:  184 train loss:  0.17623 test acc: 94.76%
+epoch:  185 train loss:  0.17554 test acc: 94.77%
+epoch:  186 train loss:  0.17485 test acc: 94.79%
+epoch:  187 train loss:  0.17417 test acc: 94.78%
+epoch:  188 train loss:  0.17349 test acc: 94.79%
+epoch:  189 train loss:  0.17281 test acc: 94.81%
+epoch:  190 train loss:  0.17214 test acc: 94.85%
+epoch:  191 train loss:  0.17148 test acc: 94.86%
+epoch:  192 train loss:  0.17081 test acc: 94.87%
+epoch:  193 train loss:  0.17015 test acc: 94.86%
+epoch:  194 train loss:  0.16950 test acc: 94.87%
+epoch:  195 train loss:  0.16885 test acc: 94.87%
+epoch:  196 train loss:  0.16820 test acc: 94.88%
+epoch:  197 train loss:  0.16756 test acc: 94.94%
+epoch:  198 train loss:  0.16692 test acc: 94.93%
+epoch:  199 train loss:  0.16628 test acc: 94.93%
+successed to run
+#+end_example

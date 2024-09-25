@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-04-29 Mon 16:48 -->
+<!-- 2024-09-02 Mon 09:25 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>RUST-LANUAGE</title>
@@ -212,6 +212,38 @@ org_html_manager.set("VIEW", "info");
 org_html_manager.setup();  // activate after the parameters are set
 // @license-end
 </script>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </head>
 <body>
 <div id="content" class="content">
@@ -220,132 +252,138 @@ org_html_manager.setup();  // activate after the parameters are set
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org73abe9c">1. Rust language</a>
+<li><a href="#org9028707">1. Rust language</a>
 <ul>
-<li><a href="#org12729fc">1.1. 1. example-1</a>
+<li><a href="#org2b22cb5">1.1. 1. example</a></li>
+<li><a href="#org1178d50">1.2. 2. ownship</a>
 <ul>
-<li><a href="#org8154562">1.1.1. first name</a></li>
-<li><a href="#org32c7f82">1.1.2. <span class="todo TODO">TODO</span> Task-1:I must to be know move abstaction  <span class="timestamp-wrapper"><span class="timestamp">&lt;2024-03-08 Fri&gt;</span></span></a></li>
+<li><a href="#orgf484787">1.2.1. image</a></li>
 </ul>
 </li>
-<li><a href="#orgd97bd52">1.2. 2. move</a>
+<li><a href="#org2da2272">1.3. 3. refenrence and derefenrence</a>
 <ul>
-<li><a href="#org31058d9">1.2.1. image</a></li>
+<li><a href="#org6597740">1.3.1. lifetime</a></li>
+<li><a href="#org93baed0">1.3.2. smarts points</a></li>
 </ul>
 </li>
-<li><a href="#org0504f76">1.3. 3. refenrence and derefenrence</a>
+<li><a href="#org69baa97">1.4. 4. expression and statment</a>
 <ul>
-<li><a href="#org2420cb1">1.3.1. lifetime</a></li>
-<li><a href="#orgbb31cdc">1.3.2. smarts points</a></li>
+<li><a href="#orgf807e94">1.4.1. 4.1 expression</a></li>
 </ul>
 </li>
-<li><a href="#org9960eac">1.4. 3. expression</a></li>
-<li><a href="#org3b36dc8">1.5. 4. structure</a>
+<li><a href="#org24cd211">1.5. 5. structure</a>
 <ul>
-<li><a href="#orgf5b03a8">1.5.1. three</a></li>
-<li><a href="#org9819139">1.5.2. struct 编译器会自动调用引用和解引用</a></li>
-<li><a href="#org1be94ab">1.5.3. 考虑多struct的相互调用</a></li>
-<li><a href="#org0ea6dc9">1.5.4. abstracts</a></li>
-<li><a href="#org0e1a8ba">1.5.5. generic type 泛型</a></li>
-<li><a href="#org62d82f2">1.5.6. 单态化</a></li>
+<li><a href="#org319a567">1.5.1. three</a></li>
+<li><a href="#orgb28313b">1.5.2. struct</a></li>
+<li><a href="#org9cb372a">1.5.3. </a></li>
+<li><a href="#org3c4f57c">1.5.4. abstracts</a></li>
+<li><a href="#org233e23f">1.5.5. generic type</a></li>
+<li><a href="#org61b64cd">1.5.6. singleton</a></li>
 </ul>
 </li>
-<li><a href="#org979e1f0">1.6. 5. trait</a>
+<li><a href="#orgbe0b96b">1.6. 6. trait</a></li>
+<li><a href="#orgbdfb48f">1.7. third party</a></li>
+<li><a href="#org757859e">1.8. <span class="todo TODO">TODO</span> todo <span class="timestamp-wrapper"><span class="timestamp">&lt;2024-03-01 Fri&gt;</span></span></a></li>
+<li><a href="#org95402f9">1.9. 7. functional and Closures</a>
 <ul>
-<li><a href="#org277b966">1.6.1. 函数的重载</a></li>
-<li><a href="#org352d4a3">1.6.2. 特征作为函数参数</a></li>
-<li><a href="#org8ebdcd6">1.6.3. 生命周期</a></li>
+<li><a href="#org94d4f8c">1.9.1. 7.1 define</a></li>
+<li><a href="#org060301b">1.9.2. 7.2 capture val</a></li>
+<li><a href="#org681931a">1.9.3. 7.3 three kind of closures</a></li>
 </ul>
 </li>
-<li><a href="#org1463ef7">1.7. third party</a></li>
-<li><a href="#orgc3a9af5">1.8. <span class="todo TODO">TODO</span> todo <span class="timestamp-wrapper"><span class="timestamp">&lt;2024-03-01 Fri&gt;</span></span></a></li>
+<li><a href="#org0ab65d9">1.10. 8. Concurrency</a></li>
+<li><a href="#org5d7dfb8">1.11. 9. collect</a>
+<ul>
+<li><a href="#org17a4356">1.11.1. 9.1 define</a></li>
+<li><a href="#orgea7f995">1.11.2. iterate over the vaule in a vector</a></li>
+<li><a href="#org827fafb">1.11.3. Box</a></li>
+<li><a href="#orgf83cc16">1.11.4. ListNode</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org73abe9c" class="outline-2">
-<h2 id="org73abe9c"><span class="section-number-2">1.</span> Rust language</h2>
+<div id="outline-container-org9028707" class="outline-2">
+<h2 id="org9028707"><span class="section-number-2">1.</span> Rust language</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org12729fc" class="outline-3">
-<h3 id="org12729fc"><span class="section-number-3">1.1.</span> 1. example-1</h3>
+<div id="outline-container-org2b22cb5" class="outline-3">
+<h3 id="org2b22cb5"><span class="section-number-3">1.1.</span> 1. example</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 使用的插件是ob-rust,底层使用了rust-script命令。
 </p>
 <div class="org-src-container">
-<pre class="src src-rust">fn main(){
- let mut v:Vec&lt;i32&gt;=Vec::new();
-  v.push(10);
-  let one:Option&lt;&amp;i32&gt;=v.get(0);
-      match one {
-      Some(x)=&gt;println!("result:{x}"),
-          None  =&gt; println!("None"),
-   }
+<pre class="src src-rust">
+let mut v:Vec&lt;i32&gt;=Vec::new();
+ v.push(10);
+ let one:Option&lt;&amp;i32&gt;=v.get(0);
+     match one {
+     Some(x)=&gt;println!("result:{x}"),
+         None  =&gt; println!("None"),
   }
+
 </pre>
 </div>
 
 <pre class="example">
 result:10
 </pre>
+</div>
+</div>
+
+<div id="outline-container-org1178d50" class="outline-3">
+<h3 id="org1178d50"><span class="section-number-3">1.2.</span> 2. ownship</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+move
+</p>
 
 <div class="org-src-container">
-<pre class="src src-rust">fn main(){
-   let mut a:i32=1;
-   loop {
-      a+=1;
-       println!("a:{}",a);
-       if a== 5{
-        let b=1;   
-        break;
-       }
-      println!("b:{}",b); 
-   }
-}
+<pre class="src src-rust">let  _s="hello,world";
+let s="HELLO";
+const _S1:&amp;str="369";
+println!("{}",s);
 </pre>
 </div>
-</div>
-<div id="outline-container-org8154562" class="outline-4">
-<h4 id="org8154562"><span class="section-number-4">1.1.1.</span> first name</h4>
-</div>
-<div id="outline-container-org32c7f82" class="outline-4">
-<h4 id="org32c7f82"><span class="section-number-4">1.1.2.</span> <span class="todo TODO">TODO</span> Task-1:I must to be know move abstaction  <span class="timestamp-wrapper"><span class="timestamp">&lt;2024-03-08 Fri&gt;</span></span></h4>
-<div class="outline-text-4" id="text-1-1-2">
-</div>
-</div>
+
+<p>
+copy trait
+</p>
 </div>
 
-<div id="outline-container-orgd97bd52" class="outline-3">
-<h3 id="orgd97bd52"><span class="section-number-3">1.2.</span> 2. move</h3>
-<div class="outline-text-3" id="text-1-2">
-</div>
-<div id="outline-container-org31058d9" class="outline-4">
-<h4 id="org31058d9"><span class="section-number-4">1.2.1.</span> image</h4>
+<div id="outline-container-orgf484787" class="outline-4">
+<h4 id="orgf484787"><span class="section-number-4">1.2.1.</span> image</h4>
 <div class="outline-text-4" id="text-1-2-1">
 
-<div id="org977f197" class="figure">
-<p><img src="./image/a.jpeg" alt="a_image">
+<div id="org7c26481" class="figure">
+<p><img src="file:///Users/sunxiebin/Project/sunxiebin.github.io/export/image/a.jpeg" alt="a_image">
 </p>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-org0504f76" class="outline-3">
-<h3 id="org0504f76"><span class="section-number-3">1.3.</span> 3. refenrence and derefenrence</h3>
+<div id="outline-container-org2da2272" class="outline-3">
+<h3 id="org2da2272"><span class="section-number-3">1.3.</span> 3. refenrence and derefenrence</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
-<a id="org0058f0c"></a>example
+<a id="org2b26633"></a>example
 </p>
 <div class="org-src-container">
 <pre class="src src-rust">fn main() {
-    let x = 66;
+{    let x = 5;
     let y = &amp;x; //  操作符 ‘=’ 的意义，
     assert_eq!(5, x);
     assert_eq!(5, *y);
     println!("this is {}",y);
-
+ }
+ let list=vec![323,12231,434323,34534];
+    let mut largest= &amp;list[0];
+    for num in &amp;list {
+        if *num &gt; *largest {largest=num;}}
+    println!("{}",*largest);
 }  
 </pre>
 </div>
@@ -363,8 +401,8 @@ result:10
 </div>
 </div>
 
-<div id="outline-container-org2420cb1" class="outline-4">
-<h4 id="org2420cb1"><span class="section-number-4">1.3.1.</span> lifetime</h4>
+<div id="outline-container-org6597740" class="outline-4">
+<h4 id="org6597740"><span class="section-number-4">1.3.1.</span> lifetime</h4>
 <div class="outline-text-4" id="text-1-3-1">
 <p>
 借用的生命周期
@@ -387,12 +425,14 @@ result:10
     // 不可变借用
     let y = &amp;x;
     println!("不可变借用：{}", y);
-
     // 可变借用
     let z = &amp;mut x;
     *z += 1;
     println!("可变借用：{}", z);
    // println!("不可变借用：{}", y);
+      let  y1=&amp;x;
+            println!("不可变借用：y1={}", y1);
+
   }
 </pre>
 </div>
@@ -414,74 +454,158 @@ fn add(x:String){
 </div>
 </div>
 
-<div id="outline-container-orgbb31cdc" class="outline-4">
-<h4 id="orgbb31cdc"><span class="section-number-4">1.3.2.</span> smarts points</h4>
+<div id="outline-container-org93baed0" class="outline-4">
+<h4 id="org93baed0"><span class="section-number-4">1.3.2.</span> smarts points</h4>
 </div>
 </div>
-<div id="outline-container-org9960eac" class="outline-3">
-<h3 id="org9960eac"><span class="section-number-3">1.4.</span> 3. expression</h3>
+<div id="outline-container-org69baa97" class="outline-3">
+<h3 id="org69baa97"><span class="section-number-3">1.4.</span> 4. expression and statment</h3>
 <div class="outline-text-3" id="text-1-4">
+</div>
+<div id="outline-container-orgf807e94" class="outline-4">
+<h4 id="orgf807e94"><span class="section-number-4">1.4.1.</span> 4.1 expression</h4>
+<div class="outline-text-4" id="text-1-4-1">
+<p>
+expression have a return value.Including operate 
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org4f77a3f"></a>enum<br>
+<div class="outline-text-5" id="text-1-4-1-1">
 <div class="org-src-container">
-<pre class="src src-rust">
+<pre class="src src-rust">enum Option&lt;T&gt; {
+  Some(T),
+  None,
+}   
 </pre>
 </div>
 </div>
-</div>
-
-<div id="outline-container-org3b36dc8" class="outline-3">
-<h3 id="org3b36dc8"><span class="section-number-3">1.5.</span> 4. structure</h3>
-<div class="outline-text-3" id="text-1-5">
-</div>
-<div id="outline-container-orgf5b03a8" class="outline-4">
-<h4 id="orgf5b03a8"><span class="section-number-4">1.5.1.</span> three</h4>
-<div class="outline-text-4" id="text-1-5-1">
-<ol class="org-ol">
-<li>命名结构体</li>
-<li>元祖结构体</li>
-<li>单元结构体</li>
+</li>
 </ol>
 </div>
 </div>
-<div id="outline-container-org9819139" class="outline-4">
-<h4 id="org9819139"><span class="section-number-4">1.5.2.</span> struct 编译器会自动调用引用和解引用</h4>
-<div class="outline-text-4" id="text-1-5-2">
+
+<div id="outline-container-org24cd211" class="outline-3">
+<h3 id="org24cd211"><span class="section-number-3">1.5.</span> 5. structure</h3>
+<div class="outline-text-3" id="text-1-5">
+</div>
+<div id="outline-container-org319a567" class="outline-4">
+<h4 id="org319a567"><span class="section-number-4">1.5.1.</span> three</h4>
+<div class="outline-text-4" id="text-1-5-1">
+<ol class="org-ol">
+<li>classic structs</li>
+</ol>
+<p>
+结构体初始化，那么成员都要初始化
+</p>
 <div class="org-src-container">
-<pre class="src src-rust">struct Some{
-  w:u32,
-  h:u32,
-} // 定义数据
-impl Some{
- fn some(&amp;self)-&gt;u32{
- return  self.w*self.h;
-}	}//定义方法
-  fn main(){
-   let s= Some{
-    w:21,
-    h:32,
-   };//实例化
- println!("the area of the some is {} squre pixels ",s.some());//调用
+<pre class="src src-rust">struct Point{
+  x:f64,
+  y:String,
+  z:f64,
+}
+let s=String::from("hello");
+let a=Point{
+  x:0.23,
+    y:s,
+    z:1.563,
+} ;
+let b=Point{
+
+    y:a.y,
+    z:a.z,
+};
+print!("{}",a.x); 
+</pre>
+</div>
+
+<ol class="org-ol">
+<li><p>
+(tuple  structs: similar to a tuple,but own signtures)
+</p>
+<div class="org-src-container">
+<pre class="src src-rust">struct Color(i32,i32,...);
+</pre>
+</div></li>
+<li>(unit structs:null structs no data)</li>
+</ol>
+
+<p>
+impl 里面的函数称为关联函数   
+</p>
+</div>
+</div>
+<div id="outline-container-orgb28313b" class="outline-4">
+<h4 id="orgb28313b"><span class="section-number-4">1.5.2.</span> struct</h4>
+<div class="outline-text-4" id="text-1-5-2">
+<p>
+编译器会自动调用   引用和解引用
+</p>
+<div class="org-src-container">
+<pre class="src src-rust">  struct Some{
+    w:u32,
+    h:u32,
+  } // 定义数据
+  impl Some{
+   fn some(&amp;self)-&gt;u32{
+   return  self.w*self.h;
+  }
+   fn new(w:u32,h:u32)-&gt;Self{
+    Self{
+        w,h
+    }
    }
+  }//定义方法
+    fn main(){
+    // let s=Some{ w:21, h:32, };// 
+     let s=Some::new(22,32);//note that :: , namespaces
+        println!("the area of the some is {} squre pixels ",s.some());//调用
+
+     let s1=&amp;s;
+println!("the area of the some is {} squre pixels ",s1.some());//调用
+
+     }
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org1be94ab" class="outline-4">
-<h4 id="org1be94ab"><span class="section-number-4">1.5.3.</span> 考虑多struct的相互调用</h4>
+<div id="outline-container-org9cb372a" class="outline-4">
+<h4 id="org9cb372a"><span class="section-number-4">1.5.3.</span> </h4>
 <div class="outline-text-4" id="text-1-5-3">
+<p>
+考虑多struct的相互调用
+</p>
+
+
 <p>
 struct A实例关联struct B 时 
 </p>
+
+<div class="org-src-container">
+<pre class="src src-rust">#[warn(warnings)]
+struct A{}
+  impl A{
+     fn a(c:&amp;B){
+
+     }
+  }
+  struct B{}
+</pre>
+</div>
 </div>
 </div>
 
-
-<div id="outline-container-org0ea6dc9" class="outline-4">
-<h4 id="org0ea6dc9"><span class="section-number-4">1.5.4.</span> abstracts</h4>
+<div id="outline-container-org3c4f57c" class="outline-4">
+<h4 id="org3c4f57c"><span class="section-number-4">1.5.4.</span> abstracts</h4>
 </div>
-<div id="outline-container-org0e1a8ba" class="outline-4">
-<h4 id="org0e1a8ba"><span class="section-number-4">1.5.5.</span> generic type 泛型</h4>
+<div id="outline-container-org233e23f" class="outline-4">
+<h4 id="org233e23f"><span class="section-number-4">1.5.5.</span> generic type</h4>
 <div class="outline-text-4" id="text-1-5-5">
+<p>
+泛型
+</p>
+
 <p>
 concrete type(具体类型/动态类型)
 </p>
@@ -498,9 +622,13 @@ concrete type(具体类型/动态类型)
 </div>
 
 
-<div id="outline-container-org62d82f2" class="outline-4">
-<h4 id="org62d82f2"><span class="section-number-4">1.5.6.</span> 单态化</h4>
+<div id="outline-container-org61b64cd" class="outline-4">
+<h4 id="org61b64cd"><span class="section-number-4">1.5.6.</span> singleton</h4>
 <div class="outline-text-4" id="text-1-5-6">
+<p>
+单态化
+</p>
+
 <ol class="org-ol">
 <li>其实就是把编译时，生成相应的重复代码。</li>
 <li>这样坏处，自然带来编译后代码冗余。</li>
@@ -509,9 +637,8 @@ concrete type(具体类型/动态类型)
 </div>
 </div>
 
-
-<div id="outline-container-org979e1f0" class="outline-3">
-<h3 id="org979e1f0"><span class="section-number-3">1.6.</span> 5. trait</h3>
+<div id="outline-container-orgbe0b96b" class="outline-3">
+<h3 id="orgbe0b96b"><span class="section-number-3">1.6.</span> 6. trait</h3>
 <div class="outline-text-3" id="text-1-6">
 <p>
 A type’s behavior consists of the methods we can call on that type. Different types share the same behavior if we can call
@@ -523,8 +650,7 @@ behaviors necessary to accomplish some purpose.
 trait 是指特征。是指相同行为的抽象。
 实现语法：
 </p>
-<pre class="example" id="orga80ce74">
-
+<pre class="example" id="org7e72515">
 pub trait ${trait_name} {
    fn ${function_name}-&gt; style;
 }
@@ -560,35 +686,21 @@ impl Run for Dog{
         println!("{} begin to run",self.name);
     }
 }
-
 </pre>
 </div>
-</div>
 
 
-<div id="outline-container-org277b966" class="outline-4">
-<h4 id="org277b966"><span class="section-number-4">1.6.1.</span> 函数的重载</h4>
-<div class="outline-text-4" id="text-1-6-1">
 <p>
-明显特征的默认函数既然被重载了，推理出特征的实现的作用域已经拓展到新的作用域。
+函数的重载
+   明显特征的默认函数既然被重载了，推理出特征的实现的作用域已经拓展到新的作用域。
+特征作为函数参数
+    之前提到了特征是行为的抽象，使得行为名词化。
 </p>
-</div>
-</div>
-<div id="outline-container-org352d4a3" class="outline-4">
-<h4 id="org352d4a3"><span class="section-number-4">1.6.2.</span> 特征作为函数参数</h4>
-<div class="outline-text-4" id="text-1-6-2">
+
+
+
 <p>
-之前提到了特征是行为的抽象，使得行为名词化。
-</p>
-</div>
-</div>
-
-
-
-<div id="outline-container-org8ebdcd6" class="outline-4">
-<h4 id="org8ebdcd6"><span class="section-number-4">1.6.3.</span> 生命周期</h4>
-<div class="outline-text-4" id="text-1-6-3">
-<p>
+ 生命周期
 在C/C++语言，或者其他语言中，一个变量的生命周期，包括了作用域和存储期两个方面。
 </p>
 <ol class="org-ol">
@@ -597,7 +709,7 @@ impl Run for Dog{
 </ol>
 
 <p>
-变量在哪个作用域实例化，那么它的生命区间，就在哪个作用域。那么变量就拥有所有权。所有权只有借用或者转移。借用就是<a href="#org0058f0c">引用</a>。    
+变量在哪个作用域实例化，那么它的生命区间，就在哪个作用域。那么变量就拥有所有权。所有权只有借用或者转移。借用就是<a href="#org2b26633">引用</a>。    
 生命周期就是解决悬空引用，什么是就是只有引用，没有实际的数据。就像一个悬空的针，为什么会导致悬空，就是因为rust，会在作用域结尾添加drop函数，
 就是free函数。
 </p>
@@ -612,9 +724,8 @@ impl Run for Dog{
 </p>
 </div>
 </div>
-</div>
-<div id="outline-container-org1463ef7" class="outline-3">
-<h3 id="org1463ef7"><span class="section-number-3">1.7.</span> third party</h3>
+<div id="outline-container-orgbdfb48f" class="outline-3">
+<h3 id="orgbdfb48f"><span class="section-number-3">1.7.</span> third party</h3>
 <div class="outline-text-3" id="text-1-7">
 <p>
 使用第三方包，使用参数flags，如下：
@@ -635,21 +746,178 @@ the secret number is:28
 </div>
 </div>
 
-
-
-<div id="outline-container-orgc3a9af5" class="outline-3">
-<h3 id="orgc3a9af5"><span class="section-number-3">1.8.</span> <span class="todo TODO">TODO</span> todo <span class="timestamp-wrapper"><span class="timestamp">&lt;2024-03-01 Fri&gt;</span></span></h3>
+<div id="outline-container-org757859e" class="outline-3">
+<h3 id="org757859e"><span class="section-number-3">1.8.</span> <span class="todo TODO">TODO</span> todo <span class="timestamp-wrapper"><span class="timestamp">&lt;2024-03-01 Fri&gt;</span></span></h3>
 <div class="outline-text-3" id="text-1-8">
 <p>
 1.对比 C++和rust的多态
 </p>
 </div>
 </div>
+
+<div id="outline-container-org95402f9" class="outline-3">
+<h3 id="org95402f9"><span class="section-number-3">1.9.</span> 7. functional and Closures</h3>
+<div class="outline-text-3" id="text-1-9">
+</div>
+<div id="outline-container-org94d4f8c" class="outline-4">
+<h4 id="org94d4f8c"><span class="section-number-4">1.9.1.</span> 7.1 define</h4>
+<div class="outline-text-4" id="text-1-9-1">
+<p>
+Programming in a functional style often includes using functions as values by passing them in arguments, returning them from other
+functions, assigning them to variables for later execution, and so forth.
+lambada
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">x: style</td>
+<td class="org-left">-&gt; return style{function body}</td>
+</tr>
+</tbody>
+</table>
+
+<div class="org-src-container">
+<pre class="src src-rust">let square = |x: i32| -&gt; i32 {x*x};
+println!("y={}",square(3));
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org060301b" class="outline-4">
+<h4 id="org060301b"><span class="section-number-4">1.9.2.</span> 7.2 capture val</h4>
+<div class="outline-text-4" id="text-1-9-2">
+<div class="org-src-container">
+<pre class="src src-rust">#[allow(warnings)]
+  let mut z:i32=3;
+    let y=|x:i32|-&gt;i32{x*z};
+  //  let n= &amp;mut z;
+  //  z=5;
+  println!("y={}",y(2));
+  //  println!("n={}",*n+1);
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org681931a" class="outline-4">
+<h4 id="org681931a"><span class="section-number-4">1.9.3.</span> 7.3 three kind of closures</h4>
+<div class="outline-text-4" id="text-1-9-3">
+<p>
+  Fnmut\Fnonce\Fn
+It's time to use three kinds of closure with liftime and ownship
+#+BEING<sub>SRC</sub> rust
+trait callback()
+#+END<sub>SRC</sub>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org0ab65d9" class="outline-3">
+<h3 id="org0ab65d9"><span class="section-number-3">1.10.</span> 8. Concurrency</h3>
+<div class="outline-text-3" id="text-1-10">
+<div class="org-src-container">
+<pre class="src src-rust">
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5d7dfb8" class="outline-3">
+<h3 id="org5d7dfb8"><span class="section-number-3">1.11.</span> 9. collect</h3>
+<div class="outline-text-3" id="text-1-11">
+</div>
+<div id="outline-container-org17a4356" class="outline-4">
+<h4 id="org17a4356"><span class="section-number-4">1.11.1.</span> 9.1 define</h4>
+<div class="outline-text-4" id="text-1-11-1">
+<ol class="org-ol">
+<li>collection is a style of data structure.
+array and tuple built-in.</li>
+<li>collection point to is stored on the heap.</li>
+<li>three major collectons: string vector hashmap.</li>
+</ol>
+
+<div class="org-src-container">
+<pre class="src src-rust">    let mut v:Vec&lt;i32&gt; =Vec::new();
+    v.push(5);
+    v.push(6);
+    let second:i32=v[1];
+    let second_option:Option&lt;&amp;i32&gt; =v.get(2);
+    match  second_option {
+        Some(second_option) =&gt; println!("{second_option}"),
+        None =&gt; println!("None"),
+    }
+    println!("{}",second);
+   let v1=vec![1,2,3,4,5];
+let third:i32=v1[1];
+println!("{}",third);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgea7f995" class="outline-4">
+<h4 id="orgea7f995"><span class="section-number-4">1.11.2.</span> iterate over the vaule in a vector</h4>
+<div class="outline-text-4" id="text-1-11-2">
+<div class="org-src-container">
+<pre class="src src-rust">let v= vec![1,2,3];
+for i in &amp;v { println!("{i}")};
+
+//change to values
+let mut v1=vec![1,2,3];
+
+for i in &amp;mut v1{
+    *i+=1;
+    println!("{i}");
+}
+
+for i in v.iter(){
+  println!("iter:{}",i);
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org827fafb" class="outline-4">
+<h4 id="org827fafb"><span class="section-number-4">1.11.3.</span> Box</h4>
+<div class="outline-text-4" id="text-1-11-3">
+<div class="org-src-container">
+<pre class="src src-rust"> let v1:Option&lt;Box&lt;i32&gt;&gt;=Some(Box::new(5));
+match v1  {
+    Some(v1)=&gt; println!("{v1}"),
+    None=&gt; println!("None"),
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf83cc16" class="outline-4">
+<h4 id="orgf83cc16"><span class="section-number-4">1.11.4.</span> ListNode</h4>
+<div class="outline-text-4" id="text-1-11-4">
+<div class="org-src-container">
+<pre class="src src-rust"> let v1:Option&lt;Box&lt;&gt;&gt;=Some(Box::new(5));
+match v1  {
+    Some(v1)=&gt; println!("{v1}"),
+    None=&gt; println!("None"),
+}  
+</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: sunxiebin</p>
-<p class="date">Created: 2024-04-29 Mon 16:48</p>
+<p class="date">Created: 2024-09-02 Mon 09:25</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

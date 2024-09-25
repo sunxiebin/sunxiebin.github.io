@@ -9,12 +9,14 @@
 ** 1. lambda expression
 this is a simple lambda example.
 #+BEGIN_SRC emacs-lisp
-(funcall (lambda (a b) (* a b) ) 3 5)
+   ;; (funcall (lambda (a b) (* a b) ) 3 5)
+  (defun testfun () (+ 2 4))
+  (testfun) 
 
 #+END_SRC
 
 #+RESULTS:
-: 15
+: 6
 
 ** 2. rust lib jion into elisp with dynamic-module
 
@@ -43,4 +45,35 @@ fn say_hello(env: &Env, name: String) -> Result<Value<'_>> {
     env.message(&format!("Hello, {}!", name))
 }
 #+END_SRC
+
+
+
+** 3. lists
+
+#+BEGIN_SRC emacs-lisp
+    '(rose have "daisy inside of it")
+  ;; fill bind some vairable
+    fill-column
+    (setq flower '(rose horse))
+    flower
+  (length= flower 2)
+
+  (make-ring 5)
+  (current-buffer)
+
+    
+#+End_SRC 
+
+#+RESULTS:
+: #<buffer lsp.org>
+** hash tables
+#+BEGIN_SRC emacs-lisp
+  (setq myhash (make-hash-table ))
+   (puthash 'one 1  myhash)
+   (puthash 'two 2 myhash)
+  myhash
+  #+End_SRC 
+
+  #+RESULTS:
+  : #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (one 1 two 2))
 

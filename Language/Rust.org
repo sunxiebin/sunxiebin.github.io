@@ -6,7 +6,8 @@
 #+EXPORT_FILE_NAME: ~/Project/sunxiebin.github.io/export/Rust.html
 * Rust language
 ** 1. example
-使用的插件是ob-rust,底层使用了rust-script命令。
+
+the plugin used is ob-rust,which utilizes rust-script command at the bottom layer.
 #+BEGIN_SRC rust :exports both 
 
    let mut v:Vec<i32>=Vec::new();
@@ -40,7 +41,6 @@ move
 copy trait
 
 *** image
-
 #+ATTR_HTML: :alt a_image
 [[file:/Users/sunxiebin/Project/sunxiebin.github.io/export/image/a.jpeg]]
 ** 3. refenrence and derefenrence
@@ -68,18 +68,33 @@ copy trait
 : 434323
 
 #+BEGIN_SRC C
-  #include<stdio.h>  
-    int main(){
-      int x=5;
-      int *y;
-      y=&x;
-     printf("%p",y);
-     return 0;
-   }
+   #include<stdio.h>
+   #include<stdbool.h>
+   void add(int a, int b)
+    {
+      int c=a+b;
+      if(c<100){
+	add(c,b);
+      }
+      else{
+	printf("%d",c);
+    
+      }
+      
+  }
+   int main(){
+       int x=5;
+       int *y;
+       add(2,3);
+       y=&x;
+     // printf("%p",y);
+      return 0;
+    }
+
 #+END_SRC
 
 #+RESULTS:
-: 0x16fb0f5d8
+: 101
 
 *** lifetime
 借用的生命周期
@@ -173,9 +188,10 @@ expression have a return value.Including operate
     struct Color(i32,i32,...);
    #+END_SRC
 3.  (unit structs:null structs no data)
-
+ 
 impl 里面的函数称为关联函数   
-*** struct 编译器会自动调用   引用和解引用
+*** struct
+编译器会自动调用   引用和解引用
 #+BEGIN_SRC rust
   struct Some{
     w:u32,
@@ -197,7 +213,7 @@ impl 里面的函数称为关联函数
 	println!("the area of the some is {} squre pixels ",s.some());//调用
 	
      let s1=&s;
-println!("the area of the some is {} squre pixels ",s1.some());//调用
+ println!("the area of the some is {} squre pixels ",s1.some());//调用
 
      }
 #+END_SRC
@@ -205,7 +221,9 @@ println!("the area of the some is {} squre pixels ",s1.some());//调用
 #+RESULTS:
 : the area of the some is 704 squre pixels
 
-*** 考虑多struct的相互调用
+*** 
+考虑多struct的相互调用
+
 
 struct A实例关联struct B 时 
 
@@ -214,7 +232,6 @@ struct A实例关联struct B 时
   struct A{}
     impl A{
        fn a(c:&B){
-
        }
     }
     struct B{}
@@ -223,7 +240,8 @@ struct A实例关联struct B 时
 #+RESULTS:
 
 *** abstracts
-*** generic type 泛型
+*** generic type
+泛型
 
 concrete type(具体类型/动态类型)
 
@@ -233,7 +251,8 @@ concrete type(具体类型/动态类型)
 使用单态化不会影响性能。
 
 
-*** 单态化
+***  singleton
+单态化
 
 1. 其实就是把编译时，生成相应的重复代码。
 2. 这样坏处，自然带来编译后代码冗余。
@@ -286,14 +305,14 @@ define->impl->call
 : xiaohuang begin to run
 
 
-*** 函数的重载
+函数的重载
    明显特征的默认函数既然被重载了，推理出特征的实现的作用域已经拓展到新的作用域。
-*** 特征作为函数参数
+特征作为函数参数
     之前提到了特征是行为的抽象，使得行为名词化。
    
 
 
-*** 生命周期
+ 生命周期
 在C/C++语言，或者其他语言中，一个变量的生命周期，包括了作用域和存储期两个方面。
   1. 作用域：在程序文本中的可见区域。（为什么要有作用域呢？，这涉及到语言学方面。）在编译期。
   2. 存储期：在函数内的自动存储期、全局的静态存储期、动态存储期、线程存储期。在运行期。
@@ -318,7 +337,7 @@ define->impl->call
 #+END_SRC
 
 #+RESULTS:
-: the secret number is:28
+: the secret number is:69
 
 ** TODO todo <2024-03-01 Fri>
 
@@ -354,23 +373,88 @@ define->impl->call
 #+RESULTS:
 : y=6
 *** 7.3 three kind of closures
-  Fnmut\Fnonce\Fn
+ Fnmut\Fnonce\Fn
 It's time to use three kinds of closure with liftime and ownship
 #+BEING_SRC rust
 trait callback()
 #+END_SRC
-** 8. Concurrency
 
+** 8. Concurrency
+*** concept
+concurrency and parallelism
+
+*** thread
+main thread can spawin a full tree.
+a thread is a OS thread of abstract concept.
 #+BEGIN_SRC rust
-  
+  use std::thread;
+  use std::time::Duration;
+
+  fn main() {
+      let v=vec![1,3,4];
+      let handle= thread::spawn(move || {
+	  println!("Here is a vector:{v:?}");
+	  for i in 1..10 {
+	      println!("hi number {i} from the spawned thread!");
+	      thread::sleep(Duration::from_millis(1));
+	  }
+      });
+      handle.join().unwrap();
+      for i in 1..5 {
+//	  println!("vector:{v:?}");
+	  println!("hi number {i} from the main thread!");
+	  thread::sleep(Duration::from_millis(1));
+      }
+  }
 #+END_SRC
 
+#+RESULTS:
+#+begin_example
+Here is a vector:[1, 3, 4]
+hi number 1 from the spawned thread!
+hi number 2 from the spawned thread!
+hi number 3 from the spawned thread!
+hi number 4 from the spawned thread!
+hi number 5 from the spawned thread!
+hi number 6 from the spawned thread!
+hi number 7 from the spawned thread!
+hi number 8 from the spawned thread!
+hi number 9 from the spawned thread!
+hi number 1 from the main thread!
+hi number 2 from the main thread!
+hi number 3 from the main thread!
+hi number 4 from the main thread!
+#+end_example
+
+**** park and unpark
+low-base api block support.
+#+BEGIN_SRC rust
+  use std::thread;
+  let join_handle= thread::spawn(||{
+     println!("here is park");
+     thread::park();
+     println!("here is unpark");	
+    });
+   println!("here is unpark...");
+  join_handle.thread().unpark();
+#+END_SRC  
+
+#+RESULTS:
+: here is park
+: here is unpark
+: here is unpark...
+
+**** scope
+
+*** async and unblock
+tikio and async-std
+
 ** 9. collect
-*** 8.1 define
+*** 9.1 define
 1. collection is a style of data structure.
    array and tuple built-in.
 2. collection point to is stored on the heap.
-3. three major collectons: string vector hashmap.    
+3. three major collectons: string vector hashmap.
  
 #+BEGIN_SRC rust
       let mut v:Vec<i32> =Vec::new();
@@ -395,15 +479,20 @@ trait callback()
 
 *** iterate over the vaule in a vector
 #+BEGIN_SRC rust
-  let v= vec![1,2,3];
-  for i in &v { println!("{i}")};
+      let v= vec![1,2,3];
+      for i in &v { println!("{i}")};
 
-  //change to values
-  let mut v1=vec![1,2,3];
-  for i in &mut v1{
-      ,*i+=1;
-      println!("{i}");
-  }
+      //change to values
+      let mut v1=vec![1,2,3];
+
+      for i in &mut v1{
+	  *i+=1;
+	  println!("{i}");
+      }
+
+      for i in v.iter(){
+        println!("iter:{}",i);
+      }
 #+END_SRC
 
 #+RESULTS:
@@ -427,7 +516,7 @@ trait callback()
 : 5
 *** ListNode
 #+BEGIN_SRC rust
-   let v1:Option<Box<>>=Some(Box::new(5));
+  let v1:Option<Box<>>=Some(Box::new(5));
   match v1  {
       Some(v1)=> println!("{v1}"),
       None=> println!("None"),
@@ -437,4 +526,49 @@ trait callback()
 #+RESULTS:
 : 5
 
+*** test capture
 
+#+BEGIN_SRC rust :flags -d opencv="0.93.0"
+    extern crate opencv;
+  use opencv::{
+      highgui,
+      imgcodecs,
+      prelude::*,
+      videoio,
+  };
+  use std::error::Error;
+
+  fn main() -> Result<(), Box<dyn Error>> {
+      // 创建一个窗口来显示视频帧
+      highgui::named_window("Camera Feed", highgui::WINDOW_AUTOSIZE)?;
+
+      // 打开默认摄像头
+      let mut cam = videoio::VideoCapture::new(0, videoio::CAP_ANY)?;
+      let mut frame = Mat::default();
+
+      // 检查摄像头是否成功打开
+      if !cam.is_opened()? {
+	  return Err("无法打开摄像头".into());
+      }
+
+      loop {
+	  // 读取一帧
+	  cam.read(&mut frame)?;
+	  if frame.is_empty() {
+	      continue;
+	  }
+
+	  // 显示帧
+	  highgui::imshow("Camera Feed", &frame)?;
+
+	  // 等待1ms，检查是否有按键输入
+	  if highgui::wait_key(1)? == 27 {
+	      break; // 按 Esc 退出循环
+	  }
+      }
+
+      Ok(())
+  }
+#+END_SRC
+
+#+RESULTS:
